@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY:?set GROQ_API_KEY in your shell or .env}
+      - API_KEY=${API_KEY:-}
+      - WORK_DIR=/data/instagram-groq
+      - MAX_WORKERS=${MAX_WORKERS:-5}
+      - CHUNK_SECONDS=${CHUNK_SECONDS:-900}
+      - OVERLAP_SECONDS=${OVERLAP_SECONDS:-2}
+    volumes:
+      - ./data:/data/instagram-groq
+    restart: unless-stopped
